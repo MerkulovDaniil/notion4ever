@@ -1,0 +1,5 @@
+Jinja2==3.0.3
+libsass==0.21.0
+Markdown==3.3.6
+notion_client==0.8.0
+python_dateutil==2.8.2
