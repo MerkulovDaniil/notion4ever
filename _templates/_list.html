@@ -47,7 +47,9 @@
 
         {% for property_title, property_md in db_entry['properties_md'].items() %}
         {% if db_entry['properties'][property_title]['type'] in ['files', 'url'] %}
+        {% if property_md != '' %}
         <div class="cell" data-title="{{property_title}}"><a href="{{property_md.split('](')[1][:-1]}}"> {{property_md.split('](')[0][1:]}} </a></div> 
+        {% endif %}
         {% else %}
         <div class="cell" data-title="{{property_title}}">{{property_md}}</div> 
         {% endif %}
