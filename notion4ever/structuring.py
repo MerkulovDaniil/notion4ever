@@ -443,6 +443,13 @@ def download_and_replace_paths(structured_notion:dict, config: dict):
             for asset in ['icon', 'cover']:
                 if page[asset] == file_url:
                     structured_notion["pages"][page_id][asset] = new_url
+            
+            # Replace url in files property:
+            if page["type"] == "db_entry":
+                for prop_name, prop_value in page["properties_md"].items():
+                    if file_url in prop_value:
+                        new_value = prop_value.replace(file_url, new_url)
+                        structured_notion["pages"][page_id]["properties_md"][prop_name] = new_value
 
 def sorting_db_entries(structured_notion: dict):
     for page_id, page in structured_notion["pages"].items():
