@@ -1,0 +1,43 @@
+{% block path_header %}
+<nav class="path-header">
+  <ul class="header-nav">
+    {% for page_id in page.family_line %}
+    {% set parent_page = site.pages[page_id] %}
+      {% if parent_page.emoji %}
+      <li class="header-title-block"><a href="{{parent_page.url}}">{{parent_page.emoji}} {{parent_page.title}}</a></li>
+      {% elif parent_page.icon %}
+      <li class="header-title-block"><a href="{{parent_page.url}}"><span class="miniicon">  <img src="{{parent_page.icon}}">  </span> {{parent_page.title}} </a></li>
+      {% else %}
+      <li class="header-title-block"><a href="{{parent_page.url}}">{{parent_page.title}}</a></li>
+      {% endif %}
+    {% endfor %}
+
+    {% if page.emoji %}
+    <li class="header-title-block">{{page.emoji}} {{page.title}}</li>
+    {% elif page.icon %}
+    <li class="header-title-block"><span><span class="miniicon">  <img src="{{page.icon}}">  </span> {{page.title}} </span></li>
+    {% else %}
+    <li class="header-title-block">{{page.title}}</li>
+    {% endif %}
+  </ul>
+</nav>
+{% endblock path_header%}
+
+<header>
+  {% block cover %}
+  <div class="cover">
+    {% if page.cover %} <img id="page-cover" src="{{page.cover}}">{% endif %}
+  </div>
+  {% endblock cover%}
+  {% block icon %}
+  {% if page.emoji %}
+  <div class="icon">
+    {{page.emoji}}
+  </div>
+  {% elif page.icon %}
+  <div class="icon">
+    <img id="page-icon" src="{{page.icon}}" style="margin-top: -25px;">
+  </div>
+  {% endif %}
+  {% endblock icon%}
+</header>

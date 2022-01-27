@@ -1,0 +1,199 @@
+@charset "utf-8";
+// @import url('fonts/https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Source+Serif+Pro&family=Ubuntu&display=swap');
+@font-face {
+	font-family: 'Computer Modern Sans';
+	src: url('fonts/cmunss.eot');
+	src: url('fonts/cmunss.eot?#iefix') format('embedded-opentype'),
+		 url('fonts/cmunss.woff') format('woff'),
+		 url('fonts/cmunss.ttf') format('truetype'),
+		 url('fonts/cmunss.svg#cmunss') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+@font-face {
+	font-family: 'Computer Modern Sans';
+	src: url('fonts/cmunsx.eot');
+	src: url('fonts/cmunsx.eot?#iefix') format('embedded-opentype'),
+		 url('fonts/cmunsx.woff') format('woff'),
+		 url('fonts/cmunsx.ttf') format('truetype'),
+		 url('fonts/cmunsx.svg#cmunsx') format('svg');
+	font-weight: bold;
+	font-style: normal;
+}
+
+
+@font-face {
+	font-family: 'Computer Modern Sans';
+	src: url('fonts/cmunsi.eot');
+	src: url('fonts/cmunsi.eot?#iefix') format('embedded-opentype'),
+		 url('fonts/cmunsi.woff') format('woff'),
+		 url('fonts/cmunsi.ttf') format('truetype'),
+		 url('fonts/cmunsi.svg#cmunsi') format('svg');
+	font-weight: normal;
+	font-style: italic;
+}
+
+
+@font-face {
+	font-family: 'Computer Modern Sans';
+	src: url('fonts/cmunso.eot');
+	src: url('fonts/cmunso.eot?#iefix') format('embedded-opentype'),
+		 url('fonts/cmunso.woff') format('woff'),
+		 url('fonts/cmunso.ttf') format('truetype'),
+		 url('fonts/cmunso.svg#cmunso') format('svg');
+	font-weight: bold;
+	font-style: italic;
+}
+
+@font-face {
+  font-family: 'Palatino Linotype';
+  src: url('fonts/PalatinoLinotype-Bold.eot');
+  src: url('fonts/PalatinoLinotype-Bold.eot?#iefix') format('embedded-opentype'),
+      url('fonts/PalatinoLinotype-Bold.woff2') format('woff2'),
+      url('fonts/PalatinoLinotype-Bold.woff') format('woff'),
+      url('fonts/PalatinoLinotype-Bold.ttf') format('truetype'),
+      url('fonts/PalatinoLinotype-Bold.svg#PalatinoLinotype-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Palatino Linotype';
+  src: url('fonts/PalatinoLinotype-BoldItalic.eot');
+  src: url('fonts/PalatinoLinotype-BoldItalic.eot?#iefix') format('embedded-opentype'),
+      url('fonts/PalatinoLinotype-BoldItalic.woff2') format('woff2'),
+      url('fonts/PalatinoLinotype-BoldItalic.woff') format('woff'),
+      url('fonts/PalatinoLinotype-BoldItalic.ttf') format('truetype'),
+      url('fonts/PalatinoLinotype-BoldItalic.svg#PalatinoLinotype-BoldItalic') format('svg');
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Palatino Linotype';
+  src: url('fonts/PalatinoLinotype-Italic.eot');
+  src: url('fonts/PalatinoLinotype-Italic.eot?#iefix') format('embedded-opentype'),
+      url('fonts/PalatinoLinotype-Italic.woff2') format('woff2'),
+      url('fonts/PalatinoLinotype-Italic.woff') format('woff'),
+      url('fonts/PalatinoLinotype-Italic.ttf') format('truetype'),
+      url('fonts/PalatinoLinotype-Italic.svg#PalatinoLinotype-Italic') format('svg');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Palatino Linotype';
+  src: url('fonts/PalatinoLinotype-Roman.eot');
+  src: url('fonts/PalatinoLinotype-Roman.eot?#iefix') format('embedded-opentype'),
+      url('fonts/PalatinoLinotype-Roman.woff2') format('woff2'),
+      url('fonts/PalatinoLinotype-Roman.woff') format('woff'),
+      url('fonts/PalatinoLinotype-Roman.ttf') format('truetype'),
+      url('fonts/PalatinoLinotype-Roman.svg#PalatinoLinotype-Roman') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+// @font-face {
+// 	font-family: 'Computer Modern Serif';
+// 	src: url('fonts/cmunrm.eot');
+// 	src: url('fonts/cmunrm.eot?#iefix') format('embedded-opentype'),
+// 		 url('fonts/cmunrm.woff') format('woff'),
+// 		 url('fonts/cmunrm.ttf') format('truetype'),
+// 		 url('fonts/cmunrm.svg#cmunrm') format('svg');
+// 	font-weight: normal;
+// 	font-style: normal;
+// }
+
+
+// @font-face {
+// 	font-family: 'Computer Modern Serif';
+// 	src: url('fonts/cmunbx.eot');
+// 	src: url('fonts/cmunbx.eot?#iefix') format('embedded-opentype'),
+// 		 url('fonts/cmunbx.woff') format('woff'),
+// 		 url('fonts/cmunbx.ttf') format('truetype'),
+// 		 url('fonts/cmunbx.svg#cmunbx') format('svg');
+// 	font-weight: bold;
+// 	font-style: normal;
+// }
+
+
+// @font-face {
+// 	font-family: 'Computer Modern Serif';
+// 	src: url('fonts/cmunti.eot');
+// 	src: url('fonts/cmunti.eot?#iefix') format('embedded-opentype'),
+// 		 url('fonts/cmunti.woff') format('woff'),
+// 		 url('fonts/cmunti.ttf') format('truetype'),
+// 		 url('fonts/cmunti.svg#cmunti') format('svg');
+// 	font-weight: normal;
+// 	font-style: italic;
+// }
+
+
+// @font-face {
+// 	font-family: 'Computer Modern Serif';
+// 	src: url('fonts/cmunbi.eot');
+// 	src: url('fonts/cmunbi.eot?#iefix') format('embedded-opentype'),
+// 		 url('fonts/cmunbi.woff') format('woff'),
+// 		 url('fonts/cmunbi.ttf') format('truetype'),
+// 		 url('fonts/cmunbi.svg#cmunbi') format('svg');
+// 	font-weight: bold;
+// 	font-style: italic;
+// }
+
+
+// Define defaults for each variable.
+
+$base-font-family: "Palatino Linotype", serif !default;
+// $base-font-family: "Computer Modern Serif", serif !default;
+$header-font-family: "Computer Modern Sans", sans-serif !default;
+$mini-text-font-family: 'Computer Modern Sans', sans-serif;
+$code-font-family: "Menlo", "Inconsolata", "Consolas", "Roboto Mono", "Ubuntu Mono", "Liberation Mono", "Courier New", monospace;
+$base-font-size:   16px !default;
+$base-font-weight: 400 !default;
+$small-font-size:  $base-font-size * 0.875 !default;
+$base-line-height: 1.5 !default;
+$path-header-height: 35px;
+
+$spacing-unit:     30px !default;
+
+$table-text-align: left !default;
+
+// Width of the content area
+$content-width:    800px !default;
+
+$on-palm:          600px !default;
+$on-laptop:        800px !default;
+
+$on-medium:        $on-palm !default;
+$on-large:         $on-laptop !default;
+
+// Use media queries like this:
+// @include media-query($on-palm) {
+//   .wrapper {
+//     padding-right: $spacing-unit / 2;
+//     padding-left: $spacing-unit / 2;
+//   }
+// }
+// Notice the following mixin uses max-width, in a deprecated, desktop-first
+// approach, whereas media queries used elsewhere now use min-width.
+@mixin media-query($device) {
+  @media screen and (max-width: $device) {
+    @content;
+  }
+}
+
+@mixin relative-font-size($ratio) {
+  font-size: #{$ratio}rem;
+}
+
+// Import pre-styling-overrides hook and style-partials.
+@import
+  "./skins/classic", //Choose the theme
+  "custom-variables", // Hook to override predefined variables.
+  "base",             // Defines element resets.
+  "layout",           // Defines structure and style based on CSS selectors.
+  "custom-styles"     // Hook to override existing styles.
+;

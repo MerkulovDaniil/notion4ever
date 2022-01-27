@@ -1,0 +1,29 @@
+<div class="gallery">
+    {% for child_id in page.children %}
+    {% set db_entry = site.pages[child_id] %}
+    <div class="card">
+        <a href="{{db_entry.url}}">
+        {% if db_entry.cover %}
+        <img id="card-image" src="{{db_entry.cover}}">
+        {% endif %}
+        <div class="card-desc">
+            {% if db_entry.emoji %}
+            {{db_entry.emoji}} {{db_entry.title}}
+            {% elif db_entry.icon %}
+            <span><span class="miniicon">  <img src="{{db_entry.icon}}">  </span> {{db_entry.title}} </span>
+            {% else %}
+            {{db_entry.title}}
+            {% endif %}
+        </div>
+        </a>
+    </div>
+      <!-- <div class="card-tags"> TAGS ARE COMING
+        <div class="card-tag"> 
+          arxiv
+        </div>
+        <div class="card-tag"> 
+          code
+        </div> 
+      </div> --> 
+    {% endfor %}
+</div>

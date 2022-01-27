@@ -1,0 +1,49 @@
+.timeline {
+    position: relative;
+  }
+.timeline:after {
+    content: "";
+    width: 2px;
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    left: 60px;
+    z-index: 1;
+    background: #c5c5c5;
+  }
+.timeline .number {
+    position: -webkit-sticky;
+    position: sticky;
+    margin-bottom: 20px;
+    top: 20px;
+  }
+.timeline .year {
+    position: relative;
+  }
+
+.timeline .year .description {
+    position: relative;
+    padding: 0 0 0 75px;
+    margin-bottom: 20px;
+  }
+.timeline .year .post {
+    position: relative;
+    padding: 0 0 0 75px;
+    margin-bottom: 20px;
+  }
+
+.timeline .year .post::before{
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: #c5c5c5;
+    border: 2px solid #ffffff;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
+    position: absolute;
+    left: 54px;
+    top: 3px;
+    z-index: 2;
+}

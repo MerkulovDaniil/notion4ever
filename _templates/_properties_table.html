@@ -1,0 +1,67 @@
+<table class="properties_table">
+    {% for property_title, property_md in page['properties_md'].items() %}
+    {% if property_md != '' %}
+    {% if page['properties'][property_title]['type'] == 'rich_text' %}
+    <tr>
+        <td width=25%><i class="fas fa-align-left"></i> {{property_title}}</td>
+        <td id="{{property_title}}"> {{property_md}} </td>
+    </tr>
+    {% elif page['properties'][property_title]['type'] == 'number' %}
+    <tr>
+        <td width=25%><i class="fas fa-hashtag"></i> {{property_title}}</td>
+        <td id="{{property_title}}"> {{property_md}} </td>
+    </tr>
+    {% elif page['properties'][property_title]['type'] == 'select' %}
+    <tr>
+        <td width=25%><i class="fas fa-caret-square-down"></i> {{property_title}}</td>
+        <td id="{{property_title}}"> {{property_md}} </td>
+    </tr>
+    {% elif page['properties'][property_title]['type'] == 'multi_select' %}
+    <tr>
+        <td width=25%><i class="fas fa-list"></i> {{property_title}}</td>
+        <td id="{{property_title}}"> {% for tag in property_md.split(';') %}{{tag}} {% endfor %}</td>
+    </tr>
+    {% elif page['properties'][property_title]['type'] == 'date' %}
+    <tr>
+        <td width=25%><i class="far fa-calendar-alt"></i> {{property_title}}</td>
+        <td id="{{property_title}}"> {{property_md}} </td>
+    </tr>
+    {% elif page['properties'][property_title]['type'] == 'people' %}
+    <tr>
+        <td width=25%><i class="fas fa-user"></i> {{property_title}}</td>
+        <td id="{{property_title}}"> {{property_md}} </td>
+    </tr>
+    {% elif page['properties'][property_title]['type'] == 'files' %}
+    <tr>
+        <td width=25%><i class="fas fa-paperclip"></i> {{property_title}}</td>
+        <td id="{{property_title}}"> <a href="{{property_md.split('](')[1][:-1]}}"> {{property_md.split('](')[0][1:]}} </a></td>
+    </tr>
+    {% elif page['properties'][property_title]['type'] == 'checkbox' %}
+    <tr>
+        <td width=25%><i class="far fa-check-square"></i> {{property_title}}</td>
+        <td id="{{property_title}}"> <input type="checkbox" id="{{property_title}}" name="{{property_title}}" {% if property_md == '- [x]' %} checked {% endif %} disabled="disabled"> <label for="{{property_title}}"></label> </td>
+    </tr>
+    {% elif page['properties'][property_title]['type'] == 'url' %}
+    <tr>
+        <td width=25%><i class="fas fa-link"></i> {{property_title}}</td>
+        <td id="{{property_title}}"> <a href="{{property_md.split('](')[1][:-1]}}"> {{property_md.split('](')[0][1:]}} </a></td>
+    </tr>
+    {% elif page['properties'][property_title]['type'] == 'email' %}
+    <tr>
+        <td width=25%><i class="far fa-envelope"></i> {{property_title}}</td>
+        <td id="{{property_title}}"> {{property_md}} </td>
+    </tr>
+    {% elif page['properties'][property_title]['type'] == 'phone_number' %}
+    <tr>
+        <td width=25%><i class="fas fa-phone"></i> {{property_title}}</td>
+        <td id="{{property_title}}"> {{property_md}} </td>
+    </tr>
+    {% elif page['properties'][property_title]['type'] == 'created_time' %}
+    <tr>
+        <td width=25%><i class="far fa-clock"></i> {{property_title}}</td>
+        <td id="{{property_title}}_content"> {{property_md}} </td>
+    </tr>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+</table>

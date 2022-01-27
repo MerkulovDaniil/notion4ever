@@ -1,0 +1,48 @@
+{% extends 'page.html' %}
+{% set page = {} %}
+{% block tab_favicon %}
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤷‍♂️</text></svg>">
+{% endblock tab_favicon %}
+
+{% block tab_title %}
+<title>SAPERE AUDE!</title>
+{% endblock tab_title %}
+
+{% block path_header %}
+<nav class="path-header">
+  <ul class="header-nav">
+      <li class="header-title-block">🤷‍♂️ Page not found</li>
+  </ul>
+</nav>
+{% endblock path_header %}
+
+{% block page_date %}
+{% endblock page_date %}
+
+{% block cover %}
+<div class="cover">
+</div>
+{% endblock cover%}
+
+{% block icon %}
+<div class="icon">
+  🤷‍♂️
+</div>
+{% endblock icon%}
+
+{% block page_title %}
+<div class="page-title" >Page not found</div>
+{% endblock page_title %}
+
+{% block page_content %}
+<p> The page you are looking for is not found. This can happen because of the redesign, even though I try to preserve the content on this site. </p>
+<p> {% set page = site['pages'][site['root_page_id']] %}
+Consider visiting main page {% if page.emoji %}
+<a href="{{page.url}}">{{page.emoji}} {{page.title}}</a></li>
+{% elif page.icon %}
+<a href="{{page.url}}"><span class="miniicon">  <img src="{{page.icon}}">  </span> {{page.title}} </a></li>
+{% else %}
+<a href="{{page.url}}">{{page.title}}</a></li>
+{% endif %}</p>
+<p>Or take a look at the archive of all posts <a href="{{site['archive_url']}}"> 🏛 Archive</a> </p>
+{% endblock page_content %}

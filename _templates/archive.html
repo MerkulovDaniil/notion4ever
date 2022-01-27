@@ -1,0 +1,68 @@
+{% extends 'page.html' %}
+{% set page = {} %}
+{% block tab_favicon %}
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏛</text></svg>">
+{% endblock tab_favicon %}
+
+{% block tab_title %}
+<title>Archive</title>
+{% endblock tab_title %}
+
+{% block path_header %}
+<nav class="path-header">
+  <ul class="header-nav">
+      {% set page = site['pages'][site['root_page_id']] %}
+      {% if page.emoji %}
+      <li class="header-title-block"><a href="{{page.url}}">{{page.emoji}} {{page.title}}</a></li>
+      {% elif page.icon %}
+      <li class="header-title-block"><a href="{{page.url}}"><span class="miniicon">  <img src="{{page.icon}}">  </span> {{page.title}} </a></li>
+      {% else %}
+      <li class="header-title-block"><a href="{{page.url}}">{{page.title}}</a></li>
+      {% endif %}
+      <li class="header-title-block">🏛 Archive</li>
+  </ul>
+</nav>
+{% endblock path_header %}
+
+
+{% block page_date %}
+{% endblock page_date %}
+
+{% block cover %}
+<div class="cover">
+</div>
+{% endblock cover%}
+{% block icon %}
+<div class="icon">
+  🏛
+</div>
+{% endblock icon%}
+
+{% block page_title %}
+<div class="page-title" >Archive</div>
+{% endblock page_title %}
+
+{% block page_content %}
+<div class="timeline">
+  {% for year in site['sorted_id_by_year'] %}
+  <div class="year">
+      <div class="number">{{year}}</div>
+      {% for page_id in site['sorted_id_by_year'][year] %}
+      {% set page = site.pages[page_id] %}
+      <div class="post">
+          {% if page.emoji %}
+          <a href="{{page.url}}">{{page.emoji}} {{page.title}} </a>
+          {% elif page.icon %}
+          <a href="{{page.url}}"><span><span class="miniicon">  <img src="{{page.icon}}">  </span> {{page.title}} </span></a>
+          {% else %}
+          <a href="{{page.url}}">{{page.title}}</a>
+          {% endif %}
+      </div>
+      <div class="description">
+          {{ page['date'].strftime("%d, %b") }} in  <a href="{{site["pages"][page["parent"]]["url"]}}">{{ site["pages"][page["parent"]]["title"] }} </a>
+      </div>
+     {% endfor %}
+  </div>
+  {% endfor %}
+</div>
+{% endblock page_content %}

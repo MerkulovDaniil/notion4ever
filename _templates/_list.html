@@ -1,0 +1,54 @@
+<div class="db_list_scroller">
+<div class="db_list">
+    <div class="row header">
+        <div class="cell"> </div>
+    {% set properties = site.pages[page['children'][0]]['properties'] %}
+    {% for property_title, property in properties.items() %}
+        {% if property['type'] == 'rich_text' %}
+        <div class="cell"> <i class="fas fa-align-left"></i>&nbsp;{{property_title}}</div>
+        {% elif property['type'] == 'number' %}
+        <div class="cell"> <i class="fas fa-hashtag"></i>&nbsp;{{property_title}}</div>
+        {% elif property['type'] == 'select' %}
+        <div class="cell"> <i class="fas fa-caret-square-down"></i>&nbsp;{{property_title}}</div>
+        {% elif property['type'] == 'multi_select' %}
+        <div class="cell"> <i class="fas fa-list"></i>&nbsp;{{property_title}} </div>
+        {% elif property['type'] == 'date' %}
+        <div class="cell"> <i class="far fa-calendar-alt"></i>&nbsp;{{property_title}}</div>
+        {% elif property['type'] == 'people' %}
+        <div class="cell"> <i class="fas fa-user"></i>&nbsp;{{property_title}} </div>
+        {% elif property['type'] == 'files' %}
+        <div class="cell"> <i class="fas fa-paperclip"></i>&nbsp;{{property_title}} </div>
+        {% elif property['type'] == 'checkbox' %}
+        <div class="cell"> <i class="far fa-check-square"></i>&nbsp;{{property_title}} </div>
+        {% elif property['type'] == 'url' %}
+        <div class="cell"> <i class="fas fa-link"></i>&nbsp;{{property_title}}</div>
+        {% elif property['type'] == 'email' %}
+        <div class="cell"> <i class="far fa-envelope"></i>&nbsp;{{property_title}} </div>
+        {% elif property['type'] == 'phone_number' %}
+        <div class="cell"> <i class="fas fa-phone"></i>&nbsp;{{property_title}} </div>
+        {% elif property['type'] == 'created_time' %}
+        <div class="cell"> <i class="far fa-clock"></i>&nbsp;{{property_title}} </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    {% for child_id in page.children %}
+    {% set db_entry = site.pages[child_id] %}
+    <div class="row">
+    <a href="{{db_entry.url}}">
+        {% if db_entry.emoji %}
+        <div class="cell">{{db_entry.emoji}} {{db_entry.title}}</div>
+        {% elif db_entry.icon %}
+        <div class="cell"><span><span class="miniicon">  <img src="{{db_entry.icon}}">  </span> {{db_entry.title}} </span></div>
+        {% else %}
+        <div class="cell">{{db_entry.title}}</div>
+        {% endif %}
+    </a>
+
+        {% for property_title, property_md in db_entry['properties_md'].items() %}
+        <div class="cell" data-title="{{property_title}}">{{property_md}}</div> 
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
+</div>
