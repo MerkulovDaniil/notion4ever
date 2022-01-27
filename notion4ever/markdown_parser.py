@@ -181,12 +181,10 @@ def block_convertor(block:object,depth=0, structured_notion={}, page_id='') -> s
     outcome_block:str = ""
     block_type = block['type']
     #Special Case: Block is blank
-    if block_type == "db_entry":
-        return ''
     if block_type == "paragraph" and not block['has_children'] and not block[block_type]['text']:
         outcome_block = blank() +"\n\n"
     else:
-        if block_type in ["child_page", "child_database"]:
+        if block_type in ["child_page", "child_database", "db_entry"]:
             title = structured_notion['pages'][block['id']]['title']
             url = structured_notion['pages'][block['id']]['url']
             outcome_block = f"{title}]({url})\n\n"
