@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 import shutil
 import argparse
+import os
 
 from notion_client import Client
 
@@ -17,9 +18,11 @@ def main():
     parser = argparse.ArgumentParser(description=("Notion4ever: Export all your"
         "notion content to markdown and html and serve it as static site."))
     parser.add_argument('--notion_token', '-n', 
-        type=str, help="Set your notion API token.")
+        type=str, help="Set your notion API token.",
+        default=os.environ.get("NOTION_TOKEN"))
     parser.add_argument('--notion_page_id', '-p', 
-        type=str, help="Set oage_id of the target page.")
+        type=str, help="Set oage_id of the target page.",
+        default=os.environ.get("NOTION_PAGE_ID"))
     parser.add_argument('--output_dir', '-od', 
         type=str, default="./_site")
     parser.add_argument('--templates_dir', '-td', 
