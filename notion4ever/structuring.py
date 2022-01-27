@@ -391,6 +391,8 @@ def parse_db_entry_properties(raw_notion: dict, structured_notion:dict):
                 raw_notion[page_id]['properties']
             structured_notion["pages"][page_id]['properties_md'] = {}
             for property_title, property in structured_notion["pages"][page_id]['properties'].items():
+                if property['type'] == "title":
+                    continue # We already have the title
                 structured_notion["pages"][page_id]['properties_md'][property_title] = ''
                 if property['type'] in properties_map:
                     if property['type'] == "files":
