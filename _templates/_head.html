@@ -3,6 +3,10 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="{{page.title}}" />
+  <meta property="og:image" content="{% if page.cover %} {{page.cover}} {% else %} {{site['pages'][site['root_page_id']]['cover']}} {% endif %}" />
+  <meta property='og:site_name' content="site['pages'][site['root_page_id']]['title']" />
+  <meta property="og:url" content="{{page.url}}" />
   <link rel="stylesheet" href="{{site.base_url}}/css/main.css">
   <!-- Fontawesome icons -->
   <script src="https://kit.fontawesome.com/74cb2acb7c.js" crossorigin="anonymous"></script>
