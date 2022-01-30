@@ -13,7 +13,7 @@ from notion_client import Client
 
 def main():
     logging.basicConfig(format="%(asctime)s %(levelname)s: %(message)s", 
-                        level=logging.DEBUG)
+                        level=logging.INFO)
 
     parser = argparse.ArgumentParser(description=("Notion4ever: Export all your"
         "notion content to markdown and html and serve it as static site."))
