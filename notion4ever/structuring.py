@@ -482,6 +482,7 @@ def structurize_notion_content(raw_notion: dict, config: dict) -> dict:
     structured_notion["urls"] = []
     structured_notion["root_page_id"] = list(raw_notion.keys())[0]
     structured_notion["pages"] = parse_headers(raw_notion)
+    structured_notion["include_footer"] = config["include_footer"]
     find_lists_in_dbs(structured_notion)
     logging.debug(f"🤖 Structurized headers")
 

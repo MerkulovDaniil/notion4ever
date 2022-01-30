@@ -37,8 +37,11 @@ def main():
         type=str, default=os.environ.get("SITE_URL"))
     parser.add_argument('--remove_before', '-rb', 
         type=bool, default=False)
+    parser.add_argument('--include_footer', '-if', 
+        type=bool, default=False)
     
     config = vars(parser.parse_args())
+    config["include_footer"] = os.environ.get("INCLUDE_FOOTER")
 
     if config["remove_before"]:
         if Path(config["output_dir"]).exists():

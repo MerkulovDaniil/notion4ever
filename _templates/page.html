@@ -48,7 +48,9 @@
       </div>
     </main>
     {% block footer %}
+    {% if site["include_footer"] %}
     {% include '_footer.html' %}
+    {% endif %}
     {% endblock footer %}
   </body>
 </html>
