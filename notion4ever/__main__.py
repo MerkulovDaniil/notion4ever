@@ -21,7 +21,7 @@ def main():
         type=str, help="Set your notion API token.",
         default=os.environ.get("NOTION_TOKEN"))
     parser.add_argument('--notion_page_id', '-p', 
-        type=str, help="Set oage_id of the target page.",
+        type=str, help="Set page_id of the target page.",
         default=os.environ.get("NOTION_PAGE_ID"))
     parser.add_argument('--output_dir', '-od', 
         type=str, default="./_site")
@@ -34,7 +34,7 @@ def main():
     parser.add_argument('--download_files', '-df', 
         type=bool, default=True)
     parser.add_argument('--site_url', '-su', 
-        type=str, default="https://merkulov.top")
+        type=str, default=os.environ.get("SITE_URL"))
     parser.add_argument('--remove_before', '-rb', 
         type=bool, default=False)
     
