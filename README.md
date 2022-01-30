@@ -4,10 +4,10 @@
   <h1>NOTION4EVER</h1>
 </div>
 
-Notion4ever is a small python tool that allows you to free your content and export it as a collection of markdown and html files via official Notion API.
+Notion4ever is a small python tool that allows you to free your content and export it as a collection of markdown and HTML files via the official Notion API.
 
 # ✨ Features
-* Export ready to deploy static html pages from your Notion.so pages.
+* Export ready to deploy static HTML pages from your Notion.so pages.
     ![root_page](https://raw.githubusercontent.com/MerkulovDaniil/notion4ever/assets/root_page.png)
 * Supports nice urls.
 * Downloads all your Notion content, which is accessible via API to a raw JSON file. 
@@ -19,12 +19,12 @@ Notion4ever is a small python tool that allows you to free your content and expo
 
     ![list](https://raw.githubusercontent.com/MerkulovDaniil/notion4ever/assets/list.png)
 
-    Note, that Notion API does not provide information about the datavase view yet. That is why now notion4ever will render database as list if any of the database entries does not have cover. If all entries have covers, than it will be displayed as gallery.
+    Note that Notion API does not provide information about the database view yet. That is why notion4ever will render the database as a list if any database entries do not have a cover. Suppose all entries have covers, then it will be displayed as a gallery.
 * Lightweight and responsive.
 * Downloads all your images and files locally (you can turn this off if you prefer to store images\files somewhere else).
 
 # 💻 How to run it locally
-Just copy or clone the content of this repository and run
+Just copy or clone the content of this repository and run.
 
 ```python
 python -m notion4ever -n NOTION_TOKEN -p NOTION_PAGE_ID -bl True
@@ -37,17 +37,17 @@ Congratulations 🤗!
 1. We will need the page ID. For example, the page with URL
 `https://fmin.notion.site/Danya-Merkulov-12e3d1659a444678b4e2b6a989a3c625` has the following ID: `12e3d1659a444678b4e2b6a989a3c625`.
 
-1. Also we will need to create Notion API token. Go to [notion.so/my-integrations](https://www.notion.so/my-integrations) -> `Create new integration`. Type the name of the integration and press `submit`. Now you can see your token, which should starts with `secret_***` under the `Internal Integration Token` field.
+1. Also, we will need to create a Notion API token. Go to [Notion.so/my-integrations](https://www.notion.so/my-integrations) -> `Create new integration`. Type the name of the integration and press `submit`. Now you can see your token, which starts with `secret_***` under the `Internal Integration Token` field.
 
-## ✅ Step 2. Setup a repository for your static site.
-In my case it is [github.com/MerkulovDaniil/merkulovdaniil.github.io/](https://github.com/MerkulovDaniil/merkulovdaniil.github.io/). 
+## ✅ Step 2. Set up a repository for your static site.
+In my case, it is [github.com/MerkulovDaniil/merkulovdaniil.github.io/](https://github.com/MerkulovDaniil/merkulovdaniil.github.io/). 
 1. You need to specify your Notion settings in a Github action secret. Jump to the `Settings -> Secrets -> Actions -> New repository secret` and create two secrets:
     a. NOTION_PAGE_ID
     b. NOTION_TOKEN
 
     ![github_secret](https://raw.githubusercontent.com/MerkulovDaniil/notion4ever/assets/github_secret.png)
 
-1. Create and configure the following github action in your repository:
+1. Create and configure the following GitHub action in your repository:
 
 <details> <summary><code>publish.yml</code></summary>        
 
@@ -87,7 +87,7 @@ jobs:
       - name: Download current version of the site
         uses: actions/checkout@v2
         with:
-          # HERE YOU NEED TO PLACE YOUR REPOSITORY
+          # HERE, YOU NEED TO PLACE YOUR REPOSITORY
           repository: 'MerkulovDaniil/merkulovdaniil.github.io'
           # TARGET BRANCH
           ref: main
@@ -112,13 +112,13 @@ jobs:
 ``` 
 </details>
 
-This script will run every 12 hours, you can change it. Note, that the first run could be slow if you page contains a lot of content, but all the following runs will not download already existing files.
+This script will run every 12 hours, and you can change it. Note that the first run could be slow if your page contains a lot of content, but all the subsequent runs will not download existing files.
 Congratulations 🤗!
 
 # 🛠 How it works
-1. Given your notion token and ID of some page, notion4ever downloads all your content from this page and all nested subpages and saves it in a JSON file `notion_content.json`.
-1. Given your raw Notion data, notion4ever structurizes the content of the page and generates file `notion_structured.json` with markdown content of all pages and relations between them. Markdown parsing is done via modification of [notion2md](https://github.com/echo724/notion2md) library.
-1. Given structurized notion content, notion4ever generates site from [jinja](https://github.com/pallets/jinja/) templates, which are located in `./_templates` directory. All styles are located in `./_sass` directory and compiled with [libsass-python](https://github.com/sass/libsass-python) library. By default, site is located in `./_site` directory
+1. Given your notion token and ID of some page, notion4ever downloads all your content from this page and all nested subpages and saves it in a JSON file, `notion_content.json`.
+1. Given your raw Notion data, notion4ever structures the page's content and generates file `notion_structured.json` with markdown content of all pages and relations between them. Markdown parsing is done via modification of [notion2md](https://github.com/echo724/notion2md) library.
+1. Given structured notion content, notion4ever generates site from [jinja](https://github.com/pallets/jinja/) templates located in `./_templates` directory. All styles are located in `./_sass` directory and compiled with [libsass-python](https://github.com/sass/libsass-python) library. By default, site is located in `./_site` directory
 
 # 🌈 Alternatives
 ## 🆓 Free
