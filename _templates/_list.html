@@ -1,8 +1,9 @@
 <div class="db_list_scroller">
 <div class="db_list">
+    {% set properties = site.pages[page['children'][0]]['properties_md'] %}
+    {% if properties != {} %}
     <div class="row header">
         <div class="cell"> </div>
-    {% set properties = site.pages[page['children'][0]]['properties_md'] %}
     {% for property_title, property in properties.items() %}
     {% set property_type = site.pages[page['children'][0]]['properties'][property_title]["type"]  %}
         {% if property_type == 'rich_text' %}
@@ -32,6 +33,7 @@
         {% endif %}
         {% endfor %}
     </div>
+    {% endif %}
 
     {% for child_id in page.children %}
     {% set db_entry = site.pages[child_id] %}
