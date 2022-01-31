@@ -143,3 +143,4 @@ Please, add your sites here if you are using Notion4ever.
 - [ ] Proper documentation.
 - [ ] Create pip package.
 - [ ] Add parralel files downloading.
+- [ ] Add search field. 
