@@ -142,3 +142,4 @@ Please, add your sites here if you are using Notion4ever.
 # ToDo
 - [ ] Proper documentation.
 - [ ] Create pip package.
+- [ ] Add parralel files downloading.
