@@ -95,7 +95,7 @@ def main():
         structured_notion['base_url'] = \
             str(Path(config["output_dir"]).resolve())
     else:
-        structured_notion['base_url'] = 'https://merkulov.top'
+        structured_notion['base_url'] = config["site_url"]
 
     logging.info(("🤖 Started generating site "
                  f"{'locally' if config['build_locally'] else ''} "
