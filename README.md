@@ -36,8 +36,8 @@ Congratulations 🤗!
 ## ✅ Step 1. Create/choose some page in Notion.
 1. We will need the page ID. For example, the page with URL
 `https://fmin.notion.site/Danya-Merkulov-12e3d1659a444678b4e2b6a989a3c625` has the following ID: `12e3d1659a444678b4e2b6a989a3c625`.
-
 1. Also, we will need to create a Notion API token. Go to [Notion.so/my-integrations](https://www.notion.so/my-integrations) -> `Create new integration`. Type the name of the integration and press `submit`. Now you can see your token, which starts with `secret_***` under the `Internal Integration Token` field.
+1. Do not forget to grant access for your integration to edit your page. Go to `Share -> invite -> {YOUR INTEGRATION NAME}`.
 
 ## ✅ Step 2. Set up a repository for your static site.
 In my case, it is [github.com/MerkulovDaniil/merkulovdaniil.github.io/](https://github.com/MerkulovDaniil/merkulovdaniil.github.io/). 
