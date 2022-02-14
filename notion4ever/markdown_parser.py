@@ -323,8 +323,11 @@ def richtext_word_converter(richtext:dict) -> str:
         if mention_type in mention_map:
             outcome_word = mention_map[mention_type](mention_information(richtext))
     else:
-        if richtext["href"]:
-            outcome_word = text_link(richtext["text"])
+        if "href" in richtext:
+            if richtext["href"]:
+                outcome_word = text_link(richtext["text"])
+            else:
+                outcome_word = plain_text
         else:
             outcome_word = plain_text
         annot = richtext["annotations"]
