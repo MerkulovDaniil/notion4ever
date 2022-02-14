@@ -12,9 +12,6 @@ import os
 from notion_client import Client
 
 def main():
-    logging.basicConfig(format="%(asctime)s %(levelname)s: %(message)s", 
-                        level=logging.INFO)
-
     parser = argparse.ArgumentParser(description=("Notion4ever: Export all your"
         "notion content to markdown and html and serve it as static site."))
     parser.add_argument('--notion_token', '-n', 
@@ -39,9 +36,19 @@ def main():
         type=bool, default=False)
     parser.add_argument('--include_footer', '-if', 
         type=bool, default=False)
+    parser.add_argument('--logging_level', '-ll', 
+        type=str, default="INFO")
     
     config = vars(parser.parse_args())
     config["include_footer"] = os.environ.get("INCLUDE_FOOTER")
+
+    if config["logging_level"] == "DEBUG":
+        llevel = logging.DEBUG
+    else:
+        llevel = logging.INFO
+    
+    logging.basicConfig(format="%(asctime)s %(levelname)s: %(message)s", 
+                    level=llevel)
 
     if config["remove_before"]:
         if Path(config["output_dir"]).exists():
