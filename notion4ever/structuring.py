@@ -416,18 +416,17 @@ def download_and_replace_paths(structured_notion:dict, config: dict):
 
             if config["build_locally"]:
                 folder = urljoin(page["url"], '.')
-                filename = Path(clean_url).name
+                filename = unquote(Path(clean_url).name)
                 new_url = urljoin(folder, filename)
                 local_file_location = str(Path(new_url).relative_to(Path(config["output_dir"]).resolve()))
             else:
-                filename = Path(clean_url).name
+                filename = unquote(Path(clean_url).name)
                 new_url = urljoin(page["url"] + '/', filename)
                 # local_file_location = str(Path())
                 local_file_location = new_url.lstrip(config["site_url"])
 
             (config["output_dir"] / Path(local_file_location).parent).mkdir(parents=True, exist_ok=True)
-            full_local_name = \
-                unquote(str((Path(config["output_dir"]).resolve() / local_file_location).resolve()))
+            full_local_name = (Path(config["output_dir"]).resolve() / local_file_location)
             if Path(full_local_name).exists():
                 logging.debug(f"🤖 {filename} already exists.")
             else:
