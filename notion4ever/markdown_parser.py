@@ -4,6 +4,7 @@
 from pathlib import Path
 from urllib.parse import urljoin
 from urllib.parse import urlparse
+from urllib.parse import unquote
 
 def paragraph(information:dict) -> str:
     return information['text']
@@ -72,7 +73,7 @@ def image(information:dict) -> str:
 def file(information:dict) -> str:
     filename = information['url']
     clean_url = urljoin(filename, urlparse(filename).path)
-    return f"[📎 {Path(clean_url).name}]({filename})"
+    return f"[📎 {unquote(Path(clean_url).name)}]({filename})"
 
 def bookmark(information:dict) -> str:
     """
