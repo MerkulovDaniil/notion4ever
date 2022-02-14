@@ -122,11 +122,14 @@ def parse_headers(raw_notion: dict) -> dict:
             else:
                 notion_pages[page_id]["title"] = None
         elif notion_pages[page_id]["type"] == "db_entry":
-            if len(page["properties"]["Name"]["title"]) > 0:
-                notion_pages[page_id]["title"] = \
-                    page["properties"]["Name"]["title"][0]["plain_text"]
+            res = recursive_search("title", page["properties"])
+            res = list(res)[0]
+            if len(res) > 0:
+                notion_pages[page_id]["title"] = res[0]["plain_text"]
             else:
                 notion_pages[page_id]["title"] = None
+                logging.warning(f"🤖Empty database entries could break the site building 😫.")
+                
 
         # Time
         notion_pages[page_id]["last_edited_time"] = \
