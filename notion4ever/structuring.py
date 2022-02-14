@@ -427,7 +427,7 @@ def download_and_replace_paths(structured_notion:dict, config: dict):
 
             (config["output_dir"] / Path(local_file_location).parent).mkdir(parents=True, exist_ok=True)
             full_local_name = \
-                unquote((Path(config["output_dir"]).resolve() / local_file_location).resolve())
+                unquote(str((Path(config["output_dir"]).resolve() / local_file_location).resolve()))
             if Path(full_local_name).exists():
                 logging.debug(f"🤖 {filename} already exists.")
             else:
