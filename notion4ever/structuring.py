@@ -2,6 +2,7 @@ import dateutil.parser as dt_parser
 import logging
 from urllib.parse import urljoin
 from urllib.parse import urlparse
+from urllib.parse import unquote
 from urllib.error import HTTPError
 from pathlib import Path
 from notion4ever import markdown_parser
@@ -425,7 +426,8 @@ def download_and_replace_paths(structured_notion:dict, config: dict):
                 local_file_location = new_url.lstrip(config["site_url"])
 
             (config["output_dir"] / Path(local_file_location).parent).mkdir(parents=True, exist_ok=True)
-            full_local_name = (Path(config["output_dir"]).resolve() / local_file_location)
+            full_local_name = \
+                unquote((Path(config["output_dir"]).resolve() / local_file_location).resolve())
             if Path(full_local_name).exists():
                 logging.debug(f"🤖 {filename} already exists.")
             else:
