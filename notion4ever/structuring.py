@@ -422,8 +422,9 @@ def download_and_replace_paths(structured_notion:dict, config: dict):
             else:
                 filename = unquote(Path(clean_url).name)
                 new_url = urljoin(page["url"] + '/', filename)
-                # local_file_location = str(Path())
-                local_file_location = new_url.lstrip(config["site_url"])
+
+                local_file_location = new_url.replace(config["site_url"], '', 1)
+                local_file_location = local_file_location.lstrip("/")
 
             (config["output_dir"] / Path(local_file_location).parent).mkdir(parents=True, exist_ok=True)
             full_local_name = (Path(config["output_dir"]).resolve() / local_file_location)
