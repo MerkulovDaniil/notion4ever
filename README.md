@@ -32,7 +32,7 @@ python -m notion4ever -n NOTION_TOKEN -p NOTION_PAGE_ID -bl True
 # 🤖 How to run it automatically with Github actions
 I will demonstrate it on the specific example of my site.
 [Notion page](https://fmin.notion.site/Danya-Merkulov-12e3d1659a444678b4e2b6a989a3c625) -> [Github repository](https://github.com/MerkulovDaniil/merkulovdaniil.github.io/)
-Congratulations 🤗!
+
 ## ✅ Step 1. Create/choose some page in Notion.
 1. We will need the page ID. For example, the page with URL
 `https://fmin.notion.site/Danya-Merkulov-12e3d1659a444678b4e2b6a989a3c625` has the following ID: `12e3d1659a444678b4e2b6a989a3c625`.
