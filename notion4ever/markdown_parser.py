@@ -314,16 +314,21 @@ mention_map = {
     "date": date
 }
 
-def richtext_word_converter(richtext:dict) -> str:
+def richtext_word_converter(richtext:dict, title_mode=False) -> str:
     outcome_word = ""
     plain_text = richtext["plain_text"]
     if richtext['type'] == "equation":
         outcome_word = equation(plain_text)
+        if title_mode:
+            return outcome_word
     elif richtext['type'] == "mention":
         mention_type = richtext['mention']['type']
         if mention_type in mention_map:
             outcome_word = mention_map[mention_type](mention_information(richtext))
     else:
+        if title_mode:
+            outcome_word = plain_text
+            return outcome_word
         if "href" in richtext:
             if richtext["href"]:
                 outcome_word = text_link(richtext["text"])
@@ -340,10 +345,14 @@ def richtext_word_converter(richtext:dict) -> str:
     return outcome_word
 
 
-def richtext_convertor(richtext_list:list) -> str:
+def richtext_convertor(richtext_list:list, title_mode=False) -> str:
+    """
+    title_mode: bool flag is needed for headers parsing (in case they contain)
+    any latex expressions.
+    """
     outcome_sentence = ""
     for richtext in richtext_list:
-        outcome_sentence += richtext_word_converter(richtext)
+        outcome_sentence += richtext_word_converter(richtext, title_mode)
     return outcome_sentence
 
 def grouping(page_md: str) -> str:

@@ -126,7 +126,9 @@ def parse_headers(raw_notion: dict) -> dict:
             res = recursive_search("title", page["properties"])
             res = list(res)[0]
             if len(res) > 0:
-                notion_pages[page_id]["title"] = res[0]["plain_text"]
+                # notion_pages[page_id]["title"] = res[0]["plain_text"]
+                notion_pages[page_id]["title"] = \
+                    markdown_parser.richtext_convertor(res, title_mode=True)
             else:
                 notion_pages[page_id]["title"] = None
                 logging.warning(f"🤖Empty database entries could break the site building 😫.")
@@ -220,6 +222,8 @@ def generate_urls(page_id:str, structured_notion: dict, config: dict):
         if config["build_locally"]:
             f_name = structured_notion["pages"][page_id]["title"].replace(" ",
                                                                           "_")
+            f_name = f_name.replace("$", "_")
+            f_name = f_name.replace("\\", "_")
         else:
             f_name = 'index'
 
@@ -237,6 +241,9 @@ def generate_urls(page_id:str, structured_notion: dict, config: dict):
             parent_url = structured_notion["pages"][parent_id]["url"]
             f_name = structured_notion["pages"][page_id]["title"].replace(" ",
                                                                           "_")
+            f_name = f_name.replace("$", "_")
+            f_name = f_name.replace("\\", "_")
+            
             f_url = Path(parent_url).parent.resolve()
             f_url = f_url / f_name / f_name
             f_url = str(f_url.resolve()) + '.html'
@@ -253,6 +260,8 @@ def generate_urls(page_id:str, structured_notion: dict, config: dict):
             parent_url += '/'
             f_name = structured_notion["pages"][page_id]["title"].replace(" ",
                                                                           "_")
+            f_name = f_name.replace("$", "_")
+            f_name = f_name.replace("\\", "_")
             f_url = urljoin(parent_url, f_name)
             while f_url in structured_notion["urls"]:
                 f_name += "_"
