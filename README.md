@@ -138,7 +138,7 @@ Please, add your sites here if you are using Notion4ever.
 | <img src="https://raw.githubusercontent.com/MerkulovDaniil/notion4ever/assets/notion_logo.svg" width="15" height="15"> Notion public page | <img src="https://raw.githubusercontent.com/MerkulovDaniil/notion4ever/assets/cb.svg" width="15" height="15"> Notion4ever web page  |
 |---|---|
 | [My personal page](https://fmin.notion.site/Danya-Merkulov-12e3d1659a444678b4e2b6a989a3c625)  |  [My personal page](https://merkulov.top) |
-| [MIPT optimization course](https://fmin.notion.site/2021-c5e13b68e51c4f90ad5c0eea3ca5f5e6)  |  [MIPT optimization course](https://miptopt.github.io) |
+| [MIPT optimization course](https://fmin.notion.site/00ef4311866942fd8efd351cc976959c)  |  [MIPT optimization course](https://opt.mipt.ru) |
  
 
 # ToDo
