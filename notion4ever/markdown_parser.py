@@ -104,6 +104,7 @@ def table_row(information:list) -> list:
 
 def video(information:dict) -> str:
     youtube_link = information["url"]
+    youtube_link.replace("http://", "https://")
 
     block_md =f"""<p><div class="res_emb_block">
 <iframe width="640" height="480" src="{youtube_link}" frameborder="0" allowfullscreen></iframe>
