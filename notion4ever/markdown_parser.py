@@ -290,7 +290,11 @@ annotation_map = {
 
 #Mentions
 def _mention_link(content,url):
-    return f"([{content}]({url}])"
+    if "https://github.com/" in url:
+        repo = Path(url).name
+        return f'<a href="{url}" target="_blank"> <i class="fa fa-lg fa-github"> </i> {repo} </a>'
+    else:
+        return f"[{content}]({url})"
 
 def user(information:dict):
     return f"({information['content']})"
@@ -302,6 +306,9 @@ def date(information:dict):
     return f"({information['content']})"
 
 def database(information:dict):
+    return _mention_link(information['content'], information['url'])
+
+def link_preview(information:dict):
     return _mention_link(information['content'], information['url'])
 
 def mention_information(payload:dict):
@@ -321,7 +328,8 @@ mention_map = {
     "user": user,
     "page": page,
     "database": database,
-    "date": date
+    "date": date,
+    "link_preview": link_preview
 }
 
 def richtext_word_converter(richtext:dict, title_mode=False) -> str:
