@@ -113,8 +113,8 @@ def video(information:dict) -> str:
         youtube_link = youtube_link.replace("http://", "https://")
 
         block_md =f"""<p><div class="res_emb_block">
-    <iframe width="640" height="480" src="{youtube_link}" frameborder="0" allowfullscreen></iframe>
-    </div></p>"""
+<iframe width="640" height="480" src="{youtube_link}" frameborder="0" allowfullscreen></iframe>
+</div></p>"""
 
     return block_md
 
