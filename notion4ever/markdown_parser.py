@@ -104,11 +104,17 @@ def table_row(information:list) -> list:
 
 def video(information:dict) -> str:
     youtube_link = information["url"]
-    youtube_link = youtube_link.replace("http://", "https://")
+    clean_url = \
+        urljoin(youtube_link, urlparse( youtube_link).path)
+    is_webm = clean_url.endswith(".webm")
+    if is_webm:
+        block_md =f"""<p><video playsinline autoplay muted loop controls src="{youtube_link}"></video></p>"""
+    else:
+        youtube_link = youtube_link.replace("http://", "https://")
 
-    block_md =f"""<p><div class="res_emb_block">
-<iframe width="640" height="480" src="{youtube_link}" frameborder="0" allowfullscreen></iframe>
-</div></p>"""
+        block_md =f"""<p><div class="res_emb_block">
+    <iframe width="640" height="480" src="{youtube_link}" frameborder="0" allowfullscreen></iframe>
+    </div></p>"""
 
     return block_md
 
@@ -170,7 +176,10 @@ def information_collector(payload:dict, structured_notion: dict, page_id) -> dic
     # internal url
     if "file" in payload:
         information['url'] = payload['file']['url']
-        if "dont_download" not in payload:
+        clean_url = \
+            urljoin(information['url'], urlparse( information['url']).path)
+        is_webm = clean_url.endswith(".webm")
+        if "dont_download" not in payload or is_webm:
             structured_notion["pages"][page_id]["files"].append(payload['file']['url'])
     
     # table cells

@@ -444,7 +444,7 @@ def download_and_replace_paths(structured_notion:dict, config: dict):
                     request.urlretrieve(file_url, full_local_name)
                     logging.debug(f"🤖 Downloaded {filename}")
                 except HTTPError:
-                    logging.warning(f"🤖Cannot download {filename}.")
+                    logging.warning(f"🤖Cannot download {filename} from link {file_url}.")
                 except ValueError:
                     continue 
 
