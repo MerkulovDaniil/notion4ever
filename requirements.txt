@@ -7,3 +7,4 @@ mdx_truly_sane_lists
 pymdown-extensions
 markdown-captions
 markdown-checklist
+Pygments
