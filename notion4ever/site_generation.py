@@ -95,15 +95,19 @@ def generate_page(page_id: str, structured_notion: dict, config: dict):
     html_content = markdown.markdown(md_content, extensions=["meta", 
                                                             "tables", 
                                                             "mdx_truly_sane_lists", 
-                                                            "markdown_checklist.extension", 
                                                             "markdown_captions",
                                                             "pymdownx.tilde",
+                                                            "pymdownx.tasklist",
                                                             "pymdownx.superfences"], 
                                     extension_configs={
                                                     'mdx_truly_sane_lists': {
                                                         'nested_indent': 4,
                                                         'truly_sane': True,
-                                                    }})
+                                                    },
+                                                    "pymdownx.tasklist":{
+                                                        "clickable_checkbox": True,
+                                                    }
+                                                    })
                                                                 
     tml = (Path(config["templates_dir"] ) / 'page.html').read_text()
     with open((config["output_dir"] / Path(local_file_location) / html_filename).resolve(), 'w+', encoding='utf-8')as f:
