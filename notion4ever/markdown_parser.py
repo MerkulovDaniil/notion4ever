@@ -106,7 +106,7 @@ def video(information:dict) -> str:
     youtube_link = information["url"]
     clean_url = \
         urljoin(youtube_link, urlparse( youtube_link).path)
-    is_webm = clean_url.endswith(".webm")
+    is_webm = clean_url.endswith(".webm") or clean_url.endswith(".mp4")
     if is_webm:
         block_md =f"""<p><video playsinline autoplay muted loop controls src="{youtube_link}"></video></p>"""
     else:
@@ -178,7 +178,7 @@ def information_collector(payload:dict, structured_notion: dict, page_id) -> dic
         information['url'] = payload['file']['url']
         clean_url = \
             urljoin(information['url'], urlparse( information['url']).path)
-        is_webm = clean_url.endswith(".webm")
+        is_webm = clean_url.endswith(".webm") or clean_url.endswith(".mp4")
         if "dont_download" not in payload or is_webm:
             structured_notion["pages"][page_id]["files"].append(payload['file']['url'])
     
