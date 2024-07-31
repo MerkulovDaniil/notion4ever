@@ -8,6 +8,19 @@ from pathlib import Path
 from notion4ever import markdown_parser
 from urllib import request
 from itertools import groupby
+import re
+
+def strip_html_tags(text):
+    # Use a regular expression to remove HTML tags
+    clean = re.compile('<.*?>')
+    # Remove HTML tags
+    text = re.sub(clean, '', text)
+    # Strip leading and trailing whitespace
+    text = text.strip()
+    # Split the text by whitespace and rejoin it with a single space to remove 
+    # extra newlines and spaces
+    text = ' '.join(text.split())
+    return text
 
 def recursive_search(key, dictionary):
     """This function does recursive search for the 'key' in the 'dictionary'
@@ -454,6 +467,10 @@ def download_and_replace_paths(structured_notion:dict, config: dict):
             # Replace url in markdown
             md_content = structured_notion["pages"][page_id]["md_content"]
             structured_notion["pages"][page_id]["md_content"] = md_content.replace(file_url, new_url)
+
+            # Add short description for sites
+            clean_content = strip_html_tags(md_content)
+            structured_notion["pages"][page_id]["description"] = clean_content[:150]
 
             # Replace url in header
             for asset in ['icon', 'cover']:
