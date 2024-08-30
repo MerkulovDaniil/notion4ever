@@ -22,6 +22,12 @@ def strip_html_tags(text):
     text = ' '.join(text.split())
     return text
 
+def clean_url_string(string):
+    replacements = ["$", "\\", ":", " "]
+    for char in replacements:
+        string = string.replace(char, "_")
+    return string
+
 def recursive_search(key, dictionary):
     """This function does recursive search for the 'key' in the 'dictionary'
 
@@ -233,10 +239,7 @@ def generate_urls(page_id:str, structured_notion: dict, config: dict):
     """Generates url for each page nested in page with 'page_id'"""
     if page_id == structured_notion["root_page_id"]:
         if config["build_locally"]:
-            f_name = structured_notion["pages"][page_id]["title"].replace(" ",
-                                                                          "_")
-            f_name = f_name.replace("$", "_")
-            f_name = f_name.replace("\\", "_")
+            f_name = clean_url_string(structured_notion["pages"][page_id]["title"])
         else:
             f_name = 'index'
 
@@ -252,10 +255,7 @@ def generate_urls(page_id:str, structured_notion: dict, config: dict):
         if config["build_locally"]:
             parent_id = structured_notion["pages"][page_id]["parent"]
             parent_url = structured_notion["pages"][parent_id]["url"]
-            f_name = structured_notion["pages"][page_id]["title"].replace(" ",
-                                                                          "_")
-            f_name = f_name.replace("$", "_")
-            f_name = f_name.replace("\\", "_")
+            f_name = clean_url_string(structured_notion["pages"][page_id]["title"])
             
             f_url = Path(parent_url).parent.resolve()
             f_url = f_url / f_name / f_name
@@ -271,10 +271,7 @@ def generate_urls(page_id:str, structured_notion: dict, config: dict):
             parent_id = structured_notion["pages"][page_id]["parent"]
             parent_url = structured_notion["pages"][parent_id]["url"]
             parent_url += '/'
-            f_name = structured_notion["pages"][page_id]["title"].replace(" ",
-                                                                          "_")
-            f_name = f_name.replace("$", "_")
-            f_name = f_name.replace("\\", "_")
+            f_name = clean_url_string(structured_notion["pages"][page_id]["title"])
             f_url = urljoin(parent_url, f_name)
             while f_url in structured_notion["urls"]:
                 f_name += "_"
