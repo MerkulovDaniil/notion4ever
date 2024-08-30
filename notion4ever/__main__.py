@@ -27,15 +27,15 @@ def main():
     parser.add_argument('--sass_dir', '-sd', 
         type=str, default="./_sass")
     parser.add_argument('--build_locally', '-bl', 
-        type=bool, default=False)
+         type=lambda x: (str(x).lower() == 'true'), default=False)
     parser.add_argument('--download_files', '-df', 
-        type=bool, default=True)
+        type=lambda x: (str(x).lower() == 'true'), default=True)
     parser.add_argument('--site_url', '-su', 
         type=str, default=os.environ.get("SITE_URL"))
     parser.add_argument('--remove_before', '-rb', 
-        type=bool, default=False)
+         type=lambda x: (str(x).lower() == 'true'), default=False)
     parser.add_argument('--include_footer', '-if', 
-        type=bool, default=False)
+         type=lambda x: (str(x).lower() == 'true'), default=False)
     parser.add_argument('--logging_level', '-ll', 
         type=str, default="INFO")
     
