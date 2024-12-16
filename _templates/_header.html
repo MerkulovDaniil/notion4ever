@@ -20,6 +20,14 @@
     <li class="header-title-block">{{page.title}}</li>
     {% endif %}
   </ul>
+
+  {% if site.search_index %}
+  <div class="search-container">
+    <i class="fas fa-search search-icon"></i>
+    <input type="text" id="search-input" placeholder="Search..." style="display: none;">
+    <div id="search-results" style="display: none;"></div>
+  </div>
+  {% endif %}
 </nav>
 {% endblock path_header%}
 

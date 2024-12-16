@@ -38,9 +38,12 @@ def main():
          type=lambda x: (str(x).lower() == 'true'), default=False)
     parser.add_argument('--logging_level', '-ll', 
         type=str, default="INFO")
+    parser.add_argument('--include_search', '-is', 
+         type=lambda x: (str(x).lower() == 'true'), default=False)
     
     config = vars(parser.parse_args())
     config["include_footer"] = os.environ.get("INCLUDE_FOOTER")
+    config["include_search"] = os.environ.get("INCLUDE_SEARCH", config["include_search"])
 
     if config["logging_level"] == "DEBUG":
         llevel = logging.DEBUG

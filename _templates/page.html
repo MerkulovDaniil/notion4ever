@@ -91,5 +91,68 @@
       });
     });
     </script>
+    {% if site.search_index %}
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Search functionality
+      const searchIcon = document.querySelector('.search-icon');
+      const searchInput = document.getElementById('search-input');
+      const searchResults = document.getElementById('search-results');
+      
+      // Toggle search input
+      searchIcon.addEventListener('click', function() {
+        const isHidden = searchInput.style.display === 'none';
+        searchInput.style.display = isHidden ? 'block' : 'none';
+        searchResults.style.display = 'none';
+        if (isHidden) {
+          searchInput.focus();
+        }
+      });
+
+      // Close search when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('.search-container')) {
+          searchInput.style.display = 'none';
+          searchResults.style.display = 'none';
+        }
+      });
+
+      // Search functionality
+      const searchData = {{ site.search_index|tojson }};
+      const fuseOptions = {
+        keys: ['title', 'content'],
+        threshold: 0.2,
+        minMatchCharLength: 2,
+        ignoreLocation: true,
+        useExtendedSearch: true,
+        distance: 500
+      };
+      const fuse = new Fuse(searchData, fuseOptions);
+
+      searchInput.addEventListener('input', function(e) {
+        const query = e.target.value;
+        if (query.length < 2) {
+          searchResults.style.display = 'none';
+          return;
+        }
+
+        const results = fuse.search(query);
+        if (results.length > 0) {
+          searchResults.innerHTML = results.slice(0, 5).map(result => `
+            <div class="search-result-item" onclick="window.location.href='${result.item.url}'">
+              <div class="result-title">${result.item.title}</div>
+              <div class="result-snippet">${result.item.content.substring(0, 100)}...</div>
+            </div>
+          `).join('');
+          searchResults.style.display = 'block';
+        } else {
+          searchResults.innerHTML = '<div class="search-result-item">No results found</div>';
+          searchResults.style.display = 'block';
+        }
+      });
+    });
+    </script>
+    {% endif %}
   </body>
 </html>

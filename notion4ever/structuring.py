@@ -504,6 +504,21 @@ def sorting_page_by_year(structured_notion: dict):
             structured_notion['sorted_id_by_year'][year].append(page[0])
     del structured_notion['sorted_pages']
             
+def create_search_index(structured_notion: dict):
+    """Creates a search index for all pages"""
+    search_index = []
+    
+    for page_id, page in structured_notion["pages"].items():
+        if "md_content" in page:
+            search_index.append({
+                "id": page_id,
+                "title": page["title"],
+                "content": strip_html_tags(page["md_content"]),
+                "url": page["url"]
+            })
+    
+    structured_notion["search_index"] = search_index
+
 def structurize_notion_content(raw_notion: dict, config: dict) -> dict:
     structured_notion = {}
     structured_notion["pages"] = {}
@@ -534,4 +549,10 @@ def structurize_notion_content(raw_notion: dict, config: dict) -> dict:
     sorting_page_by_year(structured_notion)
     logging.debug(f"🤖 Sorted pages by date and grouped by year.")
 
+    if config["include_search"]:
+        create_search_index(structured_notion)
+        logging.debug(f"🤖 Created search index.")
+    else:
+        structured_notion["search_index"] = []
+        
     return structured_notion
