@@ -43,9 +43,13 @@ def to_do(information:dict) -> str:
 
 def code(information:dict) -> str:
     """
-    input: item:dict = {"language":str,"text":str}
+    input: item:dict = {"language":str,"text":str,"caption":str}
     """
-    return f"```{information['language'].replace(' ', '_')}\n{information['text']}\n```"
+    code_block = f"```{information['language'].replace(' ', '_')}\n{information['text']}\n```"
+    
+    if 'caption' in information and information['caption']:
+        return f"<figcaption>{information['caption']}</figcaption>\n{code_block}"
+    return code_block
 
 def embed(information:dict) -> str:
     """
