@@ -295,3 +295,44 @@ table {
   margin: 0 4px 0.25em -20px;
   vertical-align: middle;
 }
+
+// Code block container
+pre {
+  position: relative;
+}
+
+// Copy button
+.copy-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-family: $mini-text-font-family;
+  color: #666;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+
+  &:hover {
+    background-color: #e5e5e5;
+  }
+
+  &:active {
+    background-color: #d5d5d5;
+  }
+}
+
+// Show copy button on hover
+pre:hover .copy-button {
+  opacity: 1;
+}
+
+// Success state
+.copy-button.success {
+  color: #2a7ae2;
+  border-color: #2a7ae2;
+}
