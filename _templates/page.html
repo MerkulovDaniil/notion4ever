@@ -107,6 +107,10 @@
         searchResults.style.display = 'none';
         if (isHidden) {
           searchInput.focus();
+          // Load search index if not already loaded
+          if (!window.searchData) {
+            loadSearchIndex();
+          }
         }
       });
 
@@ -118,39 +122,57 @@
         }
       });
 
-      // Search functionality
-      const searchData = {{ site.search_index|tojson }};
-      const fuseOptions = {
-        keys: ['title', 'content'],
-        threshold: 0.2,
-        minMatchCharLength: 2,
-        ignoreLocation: true,
-        useExtendedSearch: true,
-        distance: 500
-      };
-      const fuse = new Fuse(searchData, fuseOptions);
-
-      searchInput.addEventListener('input', function(e) {
-        const query = e.target.value;
-        if (query.length < 2) {
-          searchResults.style.display = 'none';
-          return;
+      async function loadSearchIndex() {
+        {% if site.build_locally %}
+        // For local builds, use embedded data
+        window.searchData = {{ site.search_index|tojson }};
+        initializeSearch();
+        {% else %}
+        // For server builds, fetch the index file
+        try {
+          const response = await fetch('{{ site.base_url }}/{{ site.search_index }}');
+          window.searchData = await response.json();
+          initializeSearch();
+        } catch (error) {
+          console.error('Failed to load search index:', error);
         }
+        {% endif %}
+      }
 
-        const results = fuse.search(query);
-        if (results.length > 0) {
-          searchResults.innerHTML = results.slice(0, 5).map(result => `
-            <div class="search-result-item" onclick="window.location.href='${result.item.url}'">
-              <div class="result-title">${result.item.title}</div>
-              <div class="result-snippet">${result.item.content.substring(0, 100)}...</div>
-            </div>
-          `).join('');
-          searchResults.style.display = 'block';
-        } else {
-          searchResults.innerHTML = '<div class="search-result-item">No results found</div>';
-          searchResults.style.display = 'block';
-        }
-      });
+      function initializeSearch() {
+        const fuseOptions = {
+          keys: ['title', 'content'],
+          threshold: 0.2,
+          minMatchCharLength: 2,
+          ignoreLocation: true,
+          useExtendedSearch: true,
+          distance: 500
+        };
+        window.fuse = new Fuse(window.searchData, fuseOptions);
+
+        // Add input event listener
+        searchInput.addEventListener('input', function(e) {
+          const query = e.target.value;
+          if (query.length < 2) {
+            searchResults.style.display = 'none';
+            return;
+          }
+
+          const results = window.fuse.search(query);
+          if (results.length > 0) {
+            searchResults.innerHTML = results.slice(0, 5).map(result => `
+              <div class="search-result-item" onclick="window.location.href='${result.item.url}'">
+                <div class="result-title">${result.item.title}</div>
+                <div class="result-snippet">${result.item.content.substring(0, 100)}...</div>
+              </div>
+            `).join('');
+            searchResults.style.display = 'block';
+          } else {
+            searchResults.innerHTML = '<div class="search-result-item">No results found</div>';
+            searchResults.style.display = 'block';
+          }
+        });
+      }
     });
     </script>
     {% endif %}

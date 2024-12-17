@@ -6,6 +6,7 @@ from pathlib import Path
 import logging
 import dateutil.parser as dt_parser
 from urllib.parse import urljoin
+import json
 # pip install mdx_truly_sane_lists
 # required pip install markdown-captions, pip install markdown-checklist
 # pip install pymdown-extensions
@@ -121,6 +122,15 @@ def generate_pages(structured_notion: dict, config: dict):
     for page_id, page in structured_notion["pages"].items():
         generate_page(page_id, structured_notion, config)
 
+def generate_search_index(structured_notion: dict, config: dict):
+    """Generates search index file if building for server"""
+    if not config["build_locally"] and structured_notion["search_index"]:
+        search_index_path = Path(config["output_dir"]) / "search_index.json"
+        with open(search_index_path, 'w', encoding='utf-8') as f:
+            json.dump(structured_notion["search_index"], f, ensure_ascii=False)
+        # Update the search_index to just contain the path
+        structured_notion["search_index"] = "search_index.json"
+
 def generate_site(structured_notion: dict, config: dict):
     verify_templates(config)
     logging.debug("🤖 SASS and templates are verified.")
@@ -128,6 +138,8 @@ def generate_site(structured_notion: dict, config: dict):
     generate_css(config)
     logging.debug("🤖 SASS translated to CSS folder.")
 
+    generate_search_index(structured_notion, config)
+    logging.debug("🤖 Generated search index file.")
 
     if (Path(config["output_dir"]) / "css" / "fonts").exists():
         shutil.rmtree(Path(config["output_dir"]) / "css" / "fonts")

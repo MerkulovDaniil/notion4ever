@@ -9,16 +9,20 @@ from notion4ever import markdown_parser
 from urllib import request
 from itertools import groupby
 import re
+import html
 
 def strip_html_tags(text):
+    """Remove HTML tags and normalize whitespace while preserving Unicode characters"""
+    if not text:
+        return ""
+        
     # Use a regular expression to remove HTML tags
     clean = re.compile('<.*?>')
     # Remove HTML tags
-    text = re.sub(clean, '', text)
-    # Strip leading and trailing whitespace
-    text = text.strip()
-    # Split the text by whitespace and rejoin it with a single space to remove 
-    # extra newlines and spaces
+    text = re.sub(clean, ' ', text)
+    # Convert HTML entities
+    text = html.unescape(text)
+    # Normalize whitespace
     text = ' '.join(text.split())
     return text
 
@@ -510,10 +514,13 @@ def create_search_index(structured_notion: dict):
     
     for page_id, page in structured_notion["pages"].items():
         if "md_content" in page:
+            clean_content = strip_html_tags(page["md_content"])
+            # Debug log to check content
+            logging.debug(f"🤖 Indexing content for {page['title']}: {clean_content[:200]}...")
+            
             search_index.append({
-                "id": page_id,
                 "title": page["title"],
-                "content": strip_html_tags(page["md_content"]),
+                "content": clean_content,
                 "url": page["url"]
             })
     
@@ -526,6 +533,8 @@ def structurize_notion_content(raw_notion: dict, config: dict) -> dict:
     structured_notion["root_page_id"] = list(raw_notion.keys())[0]
     structured_notion["pages"] = parse_headers(raw_notion)
     structured_notion["include_footer"] = config["include_footer"]
+    structured_notion["include_search"] = config["include_search"]
+    structured_notion["build_locally"] = config["build_locally"]
     find_lists_in_dbs(structured_notion)
     logging.debug(f"🤖 Structurized headers")
 
@@ -548,7 +557,6 @@ def structurize_notion_content(raw_notion: dict, config: dict) -> dict:
     sorting_db_entries(structured_notion)
     sorting_page_by_year(structured_notion)
     logging.debug(f"🤖 Sorted pages by date and grouped by year.")
-
     if config["include_search"]:
         create_search_index(structured_notion)
         logging.debug(f"🤖 Created search index.")
