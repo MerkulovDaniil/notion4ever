@@ -11,39 +11,60 @@ import os
 
 from notion_client import Client
 
+# Helper function to handle boolean arguments
+def str_to_bool(value):
+    if isinstance(value, bool):
+        return value
+    if value.lower() in {'true', 't', 'yes', 'y', '1'}:
+        return True
+    elif value.lower() in {'false', 'f', 'no', 'n', '0'}:
+        return False
+    else:
+        raise argparse.ArgumentTypeError(f"Boolean value expected, got {value}")
+
 def main():
-    parser = argparse.ArgumentParser(description=("Notion4ever: Export all your"
-        "notion content to markdown and html and serve it as static site."))
+    parser = argparse.ArgumentParser(description=(
+        "Notion4ever: Export all your Notion content to markdown and HTML,"
+        "and serve it as a static site."
+    ))
     parser.add_argument('--notion_token', '-n', 
-        type=str, help="Set your notion API token.",
+        type=str, help="Set your Notion API token.",
         default=os.environ.get("NOTION_TOKEN"))
     parser.add_argument('--notion_page_id', '-p', 
         type=str, help="Set page_id of the target page.",
         default=os.environ.get("NOTION_PAGE_ID"))
     parser.add_argument('--output_dir', '-od', 
-        type=str, default="./_site")
+        type=str, default="./_site", 
+        help="Directory to save the generated site.")
     parser.add_argument('--templates_dir', '-td', 
-        type=str, default="./_templates")
+        type=str, default="./_templates", 
+        help="Directory containing site templates.")
     parser.add_argument('--sass_dir', '-sd', 
-        type=str, default="./_sass")
+        type=str, default="./_sass", 
+        help="Directory for SASS files.")
     parser.add_argument('--build_locally', '-bl', 
-         type=lambda x: (str(x).lower() == 'true'), default=False)
+        type=str_to_bool, default=False, 
+        help="Build the site locally. (true/false)")
     parser.add_argument('--download_files', '-df', 
-        type=lambda x: (str(x).lower() == 'true'), default=True)
+        type=str_to_bool, default=True, 
+        help="Download files. (true/false)")
     parser.add_argument('--site_url', '-su', 
-        type=str, default=os.environ.get("SITE_URL"))
+        type=str, default=os.environ.get("SITE_URL"), 
+        help="Base URL of the site.")
     parser.add_argument('--remove_before', '-rb', 
-         type=lambda x: (str(x).lower() == 'true'), default=False)
+        type=str_to_bool, default=False, 
+        help="Remove existing files before generating the site. (true/false)")
     parser.add_argument('--include_footer', '-if', 
-         type=lambda x: (str(x).lower() == 'true'), default=False)
+        type=str_to_bool, default=os.environ.get("INCLUDE_FOOTER"), 
+        help="Include a footer in the site. (true/false)")
     parser.add_argument('--logging_level', '-ll', 
-        type=str, default="INFO")
+        type=str, default="INFO", choices=["INFO", "DEBUG"], 
+        help="Logging level.")
     parser.add_argument('--include_search', '-is', 
-         type=lambda x: (str(x).lower() == 'true'), default=False)
+        type=str_to_bool, default=os.environ.get("INCLUDE_SEARCH"), 
+        help="Include a search feature in the site. (true/false)")
     
     config = vars(parser.parse_args())
-    config["include_footer"] = os.environ.get("INCLUDE_FOOTER")
-    config["include_search"] = os.environ.get("INCLUDE_SEARCH", config["include_search"])
 
     if config["logging_level"] == "DEBUG":
         llevel = logging.DEBUG
