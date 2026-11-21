@@ -64,7 +64,7 @@ def str_to_dt(structured_notion: dict):
 def generate_page(page_id: str, structured_notion: dict, config: dict):
     page = structured_notion["pages"][page_id]
     page_url = page["url"]
-    md_filename = page["title"] + '.md'
+    md_filename = page["title"].replace("/", "_") + '.md'
 
     if config["build_locally"]:
         folder = urljoin(page_url, '.')

@@ -27,7 +27,7 @@ def strip_html_tags(text):
     return text
 
 def clean_url_string(string):
-    replacements = ["$", "\\", ":", " "]
+    replacements = ["$", "\\", ":", " ", "/"]
     for char in replacements:
         string = string.replace(char, "_")
     return string
@@ -138,13 +138,13 @@ def parse_headers(raw_notion: dict) -> dict:
                 notion_pages[page_id]["title"] = \
                     page["properties"]["title"]["title"][0]["plain_text"]
             else:
-                notion_pages[page_id]["title"] = None
+                notion_pages[page_id]["title"] = "Untitled"
         elif notion_pages[page_id]["type"] == "database":
             if len(page["title"]) > 0:
                 notion_pages[page_id]["title"] = \
                     page["title"][0]["text"]["content"]
             else:
-                notion_pages[page_id]["title"] = None
+                notion_pages[page_id]["title"] = "Untitled"
         elif notion_pages[page_id]["type"] == "db_entry":
             res = recursive_search("title", page["properties"])
             res = list(res)[0]
@@ -153,7 +153,7 @@ def parse_headers(raw_notion: dict) -> dict:
                 notion_pages[page_id]["title"] = \
                     markdown_parser.richtext_convertor(res, title_mode=True)
             else:
-                notion_pages[page_id]["title"] = None
+                notion_pages[page_id]["title"] = "Untitled"
                 logging.warning(f"🤖Empty database entries could break the site building 😫.")
                 
 
@@ -203,9 +203,14 @@ def parse_headers(raw_notion: dict) -> dict:
                     page["icon"]["emoji"]
                 notion_pages[page_id]["icon"] = None
             else:
-                icon = page["icon"]["file"]["url"]
+                # "file" / "external" carry a URL; native Notion icons
+                # (type "icon") only have a name and color, so skip them.
+                icon_type = page["icon"].get("type")
+                icon = (page["icon"].get(icon_type) or {}).get("url") \
+                    if icon_type in ("file", "external") else None
                 notion_pages[page_id]["icon"] = icon
-                notion_pages[page_id]["files"].append(icon)
+                if icon:
+                    notion_pages[page_id]["files"].append(icon)
                 notion_pages[page_id]["emoji"] = None
         else:
             notion_pages[page_id]["icon"] = None
