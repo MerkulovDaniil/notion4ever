@@ -1,5 +1,6 @@
-
 .DS_Store
 *.pyc
 .vscode/settings.json
 *_site/
+notion_content.json
+notion_structured.json
